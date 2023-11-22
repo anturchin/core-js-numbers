@@ -130,9 +130,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  const numberStr = Math.abs(value).toString();
-  const lastNum = parseInt(numberStr.charAt(numberStr.length - 1), 10);
-  return lastNum;
+  return value % 10;
 }
 
 /**
@@ -584,8 +582,8 @@ function getIntegerPartNumber(number) {
  * 1, 2, 3       => 6
  * 0.1, 0.2, 0.3 => 0.6
  */
-function getSumOfNumbers(x1, x2, x3) {
-  return x1 + x2 + x3;
+function getSumOfNumbers(...numbers) {
+  return +numbers.reduce((sum, num) => sum + num, 0).toFixed(2);
 }
 
 /**
@@ -631,7 +629,8 @@ function getRandomInteger(min, max) {
  * 3, 4 => 5
  */
 function getHypotenuse(a, b) {
-  return Math.sqrt(a ** 2 + b ** 2);
+  const result = Math.hypot(a, b);
+  return Number.isFinite(result) ? result : Number.MAX_VALUE;
 }
 
 /**
@@ -649,7 +648,7 @@ function getHypotenuse(a, b) {
  */
 function getCountOfOddNumbers(number) {
   let num = 0;
-  for (let i = 0; i <= number; ) {
+  for (let i = 0; i <= Math.abs(number); ) {
     if (i % 2 !== 0) {
       num += 1;
     }
